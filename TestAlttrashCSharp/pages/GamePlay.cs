@@ -11,6 +11,8 @@ namespace alttrashcat_tests_csharp.pages
 
         public AltObject PauseButton { get => Driver.WaitForObject(By.NAME, "pauseButton", timeout: 2); }
         public AltObject Character { get => Driver.WaitForObject(By.NAME, "PlayerPivot"); }
+        public AltObject ButtonRight { get => Driver.WaitForObject(By.NAME, "ButtonRight"); }
+
 
         public bool IsDisplayed()
         {
@@ -27,6 +29,9 @@ namespace alttrashcat_tests_csharp.pages
         public int GetCurrentLife()
         {
             return Character.GetComponentProperty<int>("CharacterInputController", "currentLife", "Assembly-CSharp");
+        }
+        public void UseMagnet(){
+            ButtonRight.Tap();  
         }
         public void AvoidObstacles(int numberOfObstacles)
         {

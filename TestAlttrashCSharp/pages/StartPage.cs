@@ -16,6 +16,8 @@ namespace alttrashcat_tests_csharp.pages
         public AltObject StartText { get => Driver.WaitForObject(By.NAME, "StartText", timeout: 5); }
         public AltObject LogoImage { get => Driver.WaitForObject(By.NAME, "LogoImage", timeout: 5); }
         public AltObject UnityUrlButton { get => Driver.WaitForObject(By.NAME, "UnityURLButton", timeout: 5); }
+        public AltObject StoreButton { get => Driver.WaitForObject(By.NAME, "StoreButton", timeout: 5); }
+
         public bool IsDisplayed()
         {
             if (StartButton != null && StartText != null && LogoImage != null && UnityUrlButton != null)
@@ -29,6 +31,9 @@ namespace alttrashcat_tests_csharp.pages
         public string GetStartButtonText()
         {
             return StartButton.GetText();
+        }
+        public void PressStoreButton(){
+            StoreButton.Tap();
         }
     }
 }
