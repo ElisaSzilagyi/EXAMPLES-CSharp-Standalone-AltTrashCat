@@ -33,6 +33,12 @@ namespace alttrashcat_tests_csharp.tests
             storePage.BuyMagnet();
             Assert.True(storePage.GetNumberOfMagnets() - currentMagnets == 1);
         }
+        [Test]
+        public void AssertOwningTrashCatCharacter()
+        {
+            storePage.goToCharactersPage();
+            Assert.True(storePage.assertOwningTrashCatCharacter());
+        }
 
         [TearDown]
         public void Dispose()
