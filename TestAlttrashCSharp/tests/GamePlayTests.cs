@@ -9,6 +9,8 @@ namespace alttrashcat_tests_csharp.tests
     public class GamePlayTests
     {
         AltDriver altDriver;
+        BasePage basePage;
+        StorePage storePage;
         MainMenuPage mainMenuPage;
         GamePlay gamePlayPage;
         PauseOverlayPage pauseOverlayPage;
@@ -18,13 +20,40 @@ namespace alttrashcat_tests_csharp.tests
         {
 
             altDriver = new AltDriver();
+
+            storePage = new StorePage(altDriver);
+            storePage.Load();
+            storePage.GetMoreMoney();
+
+            storePage.GoToTab("Item");
+            storePage.Buy("Item", 0);
+            storePage.GoToTab("Character");
+            storePage.Buy("Character", 1);
+            storePage.GoToTab("Accesories");
+            storePage.Buy("Accesories", 0);
+            storePage.GoToTab("Themes");
+            storePage.Buy("Themes", 1);
+
             mainMenuPage = new MainMenuPage(altDriver);
             mainMenuPage.LoadScene();
+
+            mainMenuPage.TapArrowButton("power", "Right");
+            mainMenuPage.TapArrowButton("theme", "Right");
+            mainMenuPage.SelectRaccoonCharacter();
+            mainMenuPage.TapArrowButton("character", "Right");
+            
+
+            mainMenuPage.MoveAltTesterLogo();
             mainMenuPage.PressRun();
+
             gamePlayPage = new GamePlay(altDriver);
             pauseOverlayPage = new PauseOverlayPage(altDriver);
             getAnotherChancePage = new GetAnotherChancePage(altDriver);
 
+        }
+        [Test]
+        public void AssertCharacterIsMoving(){
+            Assert.True(gamePlayPage.CharacterIsMoving());
         }
         [Test]
         public void TestGamePlayDisplayedCorrectly()
@@ -39,7 +68,6 @@ namespace alttrashcat_tests_csharp.tests
             pauseOverlayPage.PressResume();
             Assert.True(gamePlayPage.IsDisplayed());
         }
-        [Test]
         public void TestGameCanBePausedAndStopped()
         {
             gamePlayPage.PressPause();
@@ -51,7 +79,14 @@ namespace alttrashcat_tests_csharp.tests
         {
             gamePlayPage.AvoidObstacles(10);
             Assert.True(gamePlayPage.GetCurrentLife() > 0);
+            //this test doesnt work properly
         }
+        [Test]
+        public void UseMagnetInGame()
+        {
+            gamePlayPage.ActivateMagnetInGame();
+        }
+
         [Test]
         public void TestPlayerDiesWhenObstacleNotAvoided()
         {
@@ -69,11 +104,30 @@ namespace alttrashcat_tests_csharp.tests
                 }
             }
             Assert.True(getAnotherChancePage.IsDisplayed());
+            AltObject PremiumButton = getAnotherChancePage.GetAnotherChanceButton();
+
+            Assert.True(getAnotherChancePage.AssertDifferentColorsOnPressing(PremiumButton));
+            Assert.True(getAnotherChancePage.GetExpectedColorCodeValue(PremiumButton, "r") == getAnotherChancePage.GetCurrentColorCodeValue(PremiumButton, "r"));
+            Assert.True(getAnotherChancePage.GetExpectedColorCodeValue(PremiumButton, "g") == getAnotherChancePage.GetCurrentColorCodeValue(PremiumButton, "g"));
+            Assert.True(getAnotherChancePage.GetExpectedColorCodeValue(PremiumButton, "b") == getAnotherChancePage.GetCurrentColorCodeValue(PremiumButton, "b"));
+
+            // Console.WriteLine("Expected r is: "+ getAnotherChancePage.GetExpectedColorCodeValue(getAnotherChancePage.GetAnotherChanceButton(), "r"));
+            // Console.WriteLine("Current r is: "+ getAnotherChancePage.GetCurrentColorCodeValue(getAnotherChancePage.GetAnotherChanceButton(), "r"));
+
+
+        }
+
+        [Test]
+        public void DisplayAllEnabledElementsFromAnotherChancePage(){
+            gamePlayPage.AvoidObstacles(3);
+            getAnotherChancePage.DisplayAllEnabledElements();
         }
 
         [TearDown]
         public void Dispose()
         {
+            mainMenuPage.LoadScene();
+            mainMenuPage.DeleteData();
             altDriver.Stop();
             Thread.Sleep(1000);
         }

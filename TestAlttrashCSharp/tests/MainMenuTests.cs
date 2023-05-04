@@ -17,6 +17,30 @@ namespace alttrashcat_tests_csharp.tests
             mainMenuPage.LoadScene();
         }
 
+
+
+        [Test]
+        public void TestMainMenuPageLoadedCorrectly()
+        {
+            Assert.True(mainMenuPage.IsDisplayed());
+        }
+        [Test]
+        public void AssertMovingLogo(){
+            AltVector2 initialPosition = mainMenuPage.GetAltTesterLogo().GetScreenPosition();
+            mainMenuPage.MoveAltTesterLogo(30, 60);
+            Assert.True(initialPosition.x - mainMenuPage.GetAltTesterLogo().getScreenPosition().x == 30);
+            Assert.True(mainMenuPage.GetAltTesterLogo().getScreenPosition().y - initialPosition.y == 60);
+
+        }
+        [Test]
+        public void PrintAllButtonsFromPage(){
+            mainMenuPage.GetAllButtons();
+        }
+        [Test]
+        public void ButtonsAreCorrectlyDisplayed(){
+            Assert.True(mainMenuPage.ButtonsAndTextDisplayedCorrectly());
+        }
+
         [TearDown]
         public void Dispose()
         {
@@ -24,10 +48,7 @@ namespace alttrashcat_tests_csharp.tests
             Thread.Sleep(1000);
         }
 
-        [Test]
-        public void TestMainMenuPageLoadedCorrectly()
-        {
-            Assert.True(mainMenuPage.IsDisplayed());
-        }
+
+
     }
 }
