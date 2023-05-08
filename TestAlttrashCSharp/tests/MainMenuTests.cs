@@ -72,6 +72,12 @@ namespace alttrashcat_tests_csharp.tests
 
         }
 
+        [Test]
+        public void TestGetCurrentScene()
+        {
+            Assert.AreEqual("Main", mainMenuPage.Driver.GetCurrentScene());
+        }
+
         [TearDown]
         public void Dispose()
         {
