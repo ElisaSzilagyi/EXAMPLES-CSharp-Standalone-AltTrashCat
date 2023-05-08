@@ -91,6 +91,12 @@ namespace alttrashcat_tests_csharp.pages
             Driver.EndTouch(fingerId);
         }
 
+        public string GetKeyPlayerPref(string key, string setValue)
+        {
+            Driver.SetKeyPlayerPref(key, setValue);
+            return Driver.GetStringKeyPlayerPref(key);
+        }
+
 
 
         public void GetAllButtons()

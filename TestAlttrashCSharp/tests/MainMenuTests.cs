@@ -25,7 +25,8 @@ namespace alttrashcat_tests_csharp.tests
             Assert.True(mainMenuPage.IsDisplayed());
         }
         [Test]
-        public void AssertMovingLogo(){
+        public void AssertMovingLogo()
+        {
             AltVector2 initialPosition = mainMenuPage.GetAltTesterLogo().GetScreenPosition();
             mainMenuPage.MoveAltTesterLogo(30, 60);
             Assert.True(initialPosition.x - mainMenuPage.GetAltTesterLogo().getScreenPosition().x == 30);
@@ -33,12 +34,42 @@ namespace alttrashcat_tests_csharp.tests
 
         }
         [Test]
-        public void PrintAllButtonsFromPage(){
+        public void PrintAllButtonsFromPage()
+        {
             mainMenuPage.GetAllButtons();
         }
         [Test]
-        public void ButtonsAreCorrectlyDisplayed(){
+        public void ButtonsAreCorrectlyDisplayed()
+        {
             Assert.True(mainMenuPage.ButtonsAndTextDisplayedCorrectly());
+        }
+        [Test]
+        public void TestStringKeyPlayerPref()
+        {
+            string setStringPref = "stringPlayerPrefInTrashcat";
+            var stringPlayerPref = mainMenuPage.GetKeyPlayerPref("test", setStringPref);
+            Console.WriteLine("stringPlayerPref: " + stringPlayerPref);
+            Assert.That(stringPlayerPref, Is.EqualTo(setStringPref));
+        }
+
+        [Test]
+        public void TestDeleteKey()
+        {
+            mainMenuPage.Driver.DeletePlayerPref();
+            mainMenuPage.Driver.SetKeyPlayerPref("test", 1);
+            var val = mainMenuPage.Driver.GetIntKeyPlayerPref("test");
+            Assert.AreEqual(1, val);
+            mainMenuPage.Driver.DeleteKeyPlayerPref("test");
+            try
+            {
+                mainMenuPage.Driver.GetIntKeyPlayerPref("test");
+                Assert.Fail();
+            }
+            catch (NotFoundException exception)
+            {
+                Assert.AreEqual("PlayerPrefs key test not found", exception.Message);
+            }
+
         }
 
         [TearDown]
