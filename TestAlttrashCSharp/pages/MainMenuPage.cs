@@ -76,12 +76,18 @@ namespace alttrashcat_tests_csharp.pages
         {
             AccessoriesTopBtn.Tap();
         }
+        public void SetScreenResolutionUsingCallStaticMethod(string widthSet, string heightSet)
+        {
+            string[] parameters = new[] { widthSet, heightSet, "false" };
+            string[] typeOfParameters = new[] { "System.Int32", "System.Int32", "System.Boolean" };
+            Driver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule", parameters, typeOfParameters);
+        }
         public string GetCharacterName()
         {
             return CharacterName.GetComponentProperty<string>("UnityEngine.UI.Text", "text", "UnityEngine.UI");
         }
 
-        public void MoveAltTesterLogo(int xMoving=20, int yMoving=20)
+        public void MoveAltTesterLogo(int xMoving = 20, int yMoving = 20)
         {
             // var initialPosition = new AltVector2(AltTesterLogo.x, AltTesterLogo.y);
             AltVector2 initialPosition = AltTesterLogo.GetScreenPosition();

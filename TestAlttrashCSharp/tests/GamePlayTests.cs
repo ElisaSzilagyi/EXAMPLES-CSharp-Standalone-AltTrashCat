@@ -41,7 +41,7 @@ namespace alttrashcat_tests_csharp.tests
             mainMenuPage.TapArrowButton("theme", "Right");
             mainMenuPage.SelectRaccoonCharacter();
             mainMenuPage.TapArrowButton("character", "Right");
-            
+
 
             mainMenuPage.MoveAltTesterLogo();
             mainMenuPage.PressRun();
@@ -52,7 +52,8 @@ namespace alttrashcat_tests_csharp.tests
 
         }
         [Test]
-        public void AssertCharacterIsMoving(){
+        public void AssertCharacterIsMoving()
+        {
             Assert.True(gamePlayPage.CharacterIsMoving());
         }
         [Test]
@@ -114,11 +115,22 @@ namespace alttrashcat_tests_csharp.tests
             // Console.WriteLine("Expected r is: "+ getAnotherChancePage.GetExpectedColorCodeValue(getAnotherChancePage.GetAnotherChanceButton(), "r"));
             // Console.WriteLine("Current r is: "+ getAnotherChancePage.GetCurrentColorCodeValue(getAnotherChancePage.GetAnotherChanceButton(), "r"));
 
-
         }
 
         [Test]
-        public void DisplayAllEnabledElementsFromAnotherChancePage(){
+        public void TestTimeScale()
+        {
+            altDriver.SetTimeScale(0.1f);
+            Thread.Sleep(1000);
+            var timeScaleFromGame = altDriver.GetTimeScale();
+            Assert.AreEqual(0.1f, timeScaleFromGame);
+            //teardown
+            
+        }
+
+        [Test]
+        public void DisplayAllEnabledElementsFromAnotherChancePage()
+        {
             gamePlayPage.AvoidObstacles(3);
             getAnotherChancePage.DisplayAllEnabledElements();
         }

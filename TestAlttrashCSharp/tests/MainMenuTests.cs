@@ -9,6 +9,7 @@ namespace alttrashcat_tests_csharp.tests
     {
         AltDriver altDriver;
         MainMenuPage mainMenuPage;
+        StorePage storePage;
         [SetUp]
         public void Setup()
         {
@@ -50,6 +51,39 @@ namespace alttrashcat_tests_csharp.tests
             var stringPlayerPref = mainMenuPage.GetKeyPlayerPref("test", setStringPref);
             Console.WriteLine("stringPlayerPref: " + stringPlayerPref);
             Assert.That(stringPlayerPref, Is.EqualTo(setStringPref));
+        }
+        [Test]
+        public void TestUnloadScene()
+        {
+            // storePage.Load();
+            Console.WriteLine("Number of loaded scenes: " + altDriver.GetAllLoadedScenes().Count);
+            Console.WriteLine("First loaded scene: " + altDriver.GetAllLoadedScenes()[0]);
+            mainMenuPage.Driver.LoadScene("Shop");
+            Console.WriteLine("Number of loaded scenes: " + altDriver.GetAllLoadedScenes().Count);
+
+            Assert.AreEqual(2, altDriver.GetAllLoadedScenes().Count);
+            // altDriver.UnloadScene("Store");
+            Console.WriteLine("Number of loaded scenes after unloading store scene: " + altDriver.GetAllLoadedScenes().Count);
+            Assert.AreEqual(1, altDriver.GetAllLoadedScenes().Count);
+            Console.WriteLine("First loaded scene: " + altDriver.GetAllLoadedScenes()[0]);
+            // Assert.AreEqual("Main", altDriver.GetAllLoadedScenes()[0]);
+        }
+
+        [Test]
+        public void TestGetApplicationScreenSize()
+        {
+            altDriver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule", new string[] { "1920", "1080", "false" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
+            // altDriver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule", new string[] { "1240", "680", "true" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
+            
+            // Driver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule", parameters, typeOfParameters);
+            
+            var screensize = altDriver.GetApplicationScreenSize();
+            Console.WriteLine("Screensize x: " + screensize.x);
+            Console.WriteLine("Screensize y: " + screensize.y);
+
+            Assert.AreEqual(1920, screensize.x);
+            Assert.AreEqual(1080, screensize.y);
+            mainMenuPage.SetScreenResolutionUsingCallStaticMethod("1240", "680");
         }
 
         [Test]
