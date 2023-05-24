@@ -43,7 +43,7 @@ namespace alttrashcat_tests_csharp.tests
             mainMenuPage.TapArrowButton("character", "Right");
 
 
-            mainMenuPage.MoveAltTesterLogo();
+            mainMenuPage.MoveObject(mainMenuPage.AltTesterLogo);
             mainMenuPage.PressRun();
 
             gamePlayPage = new GamePlay(altDriver);
