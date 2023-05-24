@@ -139,7 +139,6 @@ namespace alttrashcat_tests_csharp.pages
     public string GetObjectProperty(AltObject button, string propertyName)
     {
         var propertyValue = button.GetComponentProperty<string>("UnityEngine.UI.Button", propertyName, "UnityEngine.UI");
-        //to change component name and assembly name from here, because they are not for every AltObject object.
         return propertyValue.ToString();
     }
 
