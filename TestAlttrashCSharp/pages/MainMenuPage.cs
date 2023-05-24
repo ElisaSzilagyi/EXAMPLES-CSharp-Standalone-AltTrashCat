@@ -21,10 +21,8 @@ namespace alttrashcat_tests_csharp.pages
         public AltObject MissionButton { get => Driver.WaitForObject(By.NAME, "MissionButton", timeout: 10); }
         public AltObject RunButton { get => Driver.WaitForObject(By.NAME, "StartButton", timeout: 10); }
         public AltObject CharacterName { get => Driver.WaitForObject(By.NAME, "CharName", timeout: 10); }
-        public AltObject AccessoriesTopBtn { get => Driver.WaitForObject(By.PATH, "/UICamera/Loadout/AccessoriesSelector/ButtonTop", timeout: 10); }
 
         public AltObject ThemeName { get => Driver.WaitForObject(By.NAME, "ThemeZone", timeout: 10); }
-        public AltObject ButtonRight { get => Driver.WaitForObject(By.PATH, "/UICamera/Loadout/PowerupZone/ButtonRight", timeout: 10); }
         public AltObject RightCharacterBtn { get => Driver.WaitForObject(By.PATH, "/UICamera/Loadout/CharZone/CharName/CharSelector/ButtonRight", timeout: 10); }
         // /UICamera/Loadout/ThemeZone/ThemeSelector/ButtonRight
 
@@ -58,11 +56,6 @@ namespace alttrashcat_tests_csharp.pages
 
             Driver.WaitForObject(By.PATH, path, timeout: 5).Tap();
         }
-
-        public void UseMagnetSetup()
-        {
-            ButtonRight.Tap();
-        }
         public void ChangeCharacter()
         {
             RightCharacterBtn.Tap();
@@ -71,10 +64,6 @@ namespace alttrashcat_tests_csharp.pages
         {
             while (GetCharacterName() != "Rubbish Raccoon")
                 ChangeCharacter();
-        }
-        public void ChangeHat()
-        {
-            AccessoriesTopBtn.Tap();
         }
         public void SetScreenResolutionUsingCallStaticMethod(string widthSet, string heightSet)
         {

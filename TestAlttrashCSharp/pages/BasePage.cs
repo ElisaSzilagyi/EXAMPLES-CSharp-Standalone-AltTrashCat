@@ -12,9 +12,6 @@ namespace alttrashcat_tests_csharp.pages
         {
             Driver = driver;
         }
-        public AltObject GetObjectByName(string name){
-            return Driver.WaitForObject(By.NAME, name, timeout: 2);
-        }
         public AltObject GetObjectByPath(string path){
             return Driver.WaitForObject(By.PATH, path, timeout: 2);
         }
