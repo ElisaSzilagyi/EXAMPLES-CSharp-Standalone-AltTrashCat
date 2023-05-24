@@ -18,36 +18,48 @@ namespace alttrashcat_tests_csharp.tests
         /// <summary>
         /// buy with items, characters, accessories elements' indexes.
         /// </summary>
-        public void BuyFromStore(int[] fromItems = null, int[] fromCharacters = null, int[] fromAccessories = null)
+        public void BuyFromStore(int[] fromItems = null, int[] fromCharacters = null, int[] fromAccessories = null, int[] fromThemes = null)
         {
-            if (fromItems.Length > 0)
+            storePage = new StorePage(altDriver);
+
+            storePage.Load();
+            storePage.GetMoreMoney();
+
+            if (fromItems != null && fromItems.Length > 0)
+            {
+                storePage.GoToTab("Item");
                 foreach (int itemIndex in fromItems) storePage.Buy("Item", itemIndex);
-            if (fromCharacters.Length > 0)
-                foreach (int characterIndex in fromCharacters) storePage.Buy("Item", characterIndex);
-            if (fromAccessories.Length > 0)
-                foreach (int accessoryIndex in fromAccessories) storePage.Buy("Item", accessoryIndex);
+            }
+
+            if (fromCharacters != null && fromCharacters.Length > 0)
+            {
+                storePage.GoToTab("Character");
+                foreach (int characterIndex in fromCharacters) storePage.Buy("Character", characterIndex);
+            }
+
+            if (fromAccessories != null && fromAccessories.Length > 0)
+            {
+                storePage.GoToTab("Accesories");
+                foreach (int accessoryIndex in fromAccessories) storePage.Buy("Accessories", accessoryIndex);
+            }
+
+            if (fromThemes != null && fromThemes.Length > 0)
+            {
+                storePage.GoToTab("Themes");
+                foreach (int themeIndex in fromThemes) storePage.Buy("Themes", themeIndex);
+            }
         }
         [SetUp]
         public void Setup()
         {
 
             altDriver = new AltDriver();
-
             storePage = new StorePage(altDriver);
-            storePage.Load();
-            storePage.GetMoreMoney();
+            mainMenuPage = new MainMenuPage(altDriver);
 
             BuyFromStore(new int[] { 0, 1 }, new int[] { 1 }, new int[] { 0, 1 });
 
-            mainMenuPage = new MainMenuPage(altDriver);
             mainMenuPage.LoadScene();
-
-            mainMenuPage.TapArrowButton("power", "Right");
-            mainMenuPage.TapArrowButton("theme", "Right");
-            mainMenuPage.SelectRaccoonCharacter();
-            mainMenuPage.TapArrowButton("character", "Right");
-
-
             mainMenuPage.MoveObject(mainMenuPage.AltTesterLogo);
             mainMenuPage.PressRun();
 
@@ -74,6 +86,7 @@ namespace alttrashcat_tests_csharp.tests
             pauseOverlayPage.PressResume();
             Assert.True(gamePlayPage.IsDisplayed());
         }
+        [Test]
         public void TestGameCanBePausedAndStopped()
         {
             gamePlayPage.PressPause();
@@ -90,7 +103,16 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestUseMagnetInGame()
         {
+            BuyFromStore(new int[] { 0, 1 }); //bought magnet
+            int numOfMagents = storePage.GetNumberOf(0);
+            mainMenuPage.LoadScene();
+            mainMenuPage.TapArrowButton("power", "Right");
+            mainMenuPage.PressRun();
             gamePlayPage.ActivateMagnetInGame();
+
+            storePage.Load();
+            storePage.GoToTab("Item");
+            Assert.True(numOfMagents - storePage.GetNumberOf(0) == 1);
         }
 
         [Test]
