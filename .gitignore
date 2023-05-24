@@ -1,3 +1,8 @@
 App/*
 TestAlttrashCSharp/bin
 TestAlttrashCSharp/obj
+.vscode
+TestResults
+nuget.exe
+TestResult.xml
+Nure.1.2.0
