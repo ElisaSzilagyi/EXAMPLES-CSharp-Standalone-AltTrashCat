@@ -128,10 +128,7 @@ namespace alttrashcat_tests_csharp.pages
     public bool FishbonesAmountByCoordinates()
     {
         int currentFishbones = GetTotalAmountOfMoney();
-        Console.WriteLine("Current fishbones: " + currentFishbones);
         var fishbonesAmount = Driver.FindObjectAtCoordinates(new AltVector2(134 + FishbonesIcon.x, FishbonesIcon.y - 3));
-        Console.WriteLine("Found fishbones: " + int.Parse(fishbonesAmount.GetText()));
-
         return (currentFishbones == int.Parse(fishbonesAmount.GetText()));
     }
 
