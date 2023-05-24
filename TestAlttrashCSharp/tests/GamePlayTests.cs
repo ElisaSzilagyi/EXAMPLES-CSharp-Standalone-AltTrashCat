@@ -52,7 +52,7 @@ namespace alttrashcat_tests_csharp.tests
 
         }
         [Test]
-        public void AssertCharacterIsMoving()
+        public void TestAssertCharacterIsMoving()
         {
             Assert.True(gamePlayPage.CharacterIsMoving());
         }
@@ -83,7 +83,7 @@ namespace alttrashcat_tests_csharp.tests
             //this test doesnt work properly
         }
         [Test]
-        public void UseMagnetInGame()
+        public void TestUseMagnetInGame()
         {
             gamePlayPage.ActivateMagnetInGame();
         }
@@ -129,8 +129,9 @@ namespace alttrashcat_tests_csharp.tests
         }
 
         [Test]
-        public void DisplayAllEnabledElementsFromAnotherChancePage()
+        public void TestDisplayAllEnabledElementsFromAnotherChancePage()
         {
+            // is this a test?
             gamePlayPage.AvoidObstacles(3);
             getAnotherChancePage.DisplayAllEnabledElements();
         }

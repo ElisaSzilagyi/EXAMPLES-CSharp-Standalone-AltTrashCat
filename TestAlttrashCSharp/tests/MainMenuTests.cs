@@ -26,7 +26,7 @@ namespace alttrashcat_tests_csharp.tests
             Assert.True(mainMenuPage.IsDisplayed());
         }
         [Test]
-        public void AssertMovingLogo()
+        public void TestAssertMovingLogo()
         {
             AltVector2 initialPosition = mainMenuPage.GetAltTesterLogo().GetScreenPosition();
             mainMenuPage.MoveAltTesterLogo(30, 60);
@@ -35,12 +35,12 @@ namespace alttrashcat_tests_csharp.tests
 
         }
         [Test]
-        public void PrintAllButtonsFromPage()
+        public void TestPrintAllButtonsFromPage()
         {
             mainMenuPage.GetAllButtons();
         }
         [Test]
-        public void ButtonsAreCorrectlyDisplayed()
+        public void TestButtonsAreCorrectlyDisplayed()
         {
             Assert.True(mainMenuPage.ButtonsAndTextDisplayedCorrectly());
         }
