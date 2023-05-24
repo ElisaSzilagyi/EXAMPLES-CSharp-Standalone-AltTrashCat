@@ -38,6 +38,7 @@ namespace alttrashcat_tests_csharp.tests
         }
 
         [Test]
+        [Ignore("SetComponentProperty is not working in this case.")]
         public void ChangeMoneyValue()
         {
             string value = "13";
