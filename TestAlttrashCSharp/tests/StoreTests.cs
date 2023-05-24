@@ -73,24 +73,27 @@ namespace alttrashcat_tests_csharp.tests
             string tabName = "Items";
             string newName = storePage.ChangeItemName(tabName, 0, value);
             Assert.AreEqual(value, newName);
-            //we are not able to change this property with setComponentProperty
         }
 
         [Test]
         public void BuyMagnet()
         {
+            //todo make it independent
+
             var tabName = "Item";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
             var moneyAmount = storePage.GetTotalAmountOfMoney();
             storePage.GoToTab(tabName);
             storePage.Buy(tabName, 0);
-            Assert.True(storePage.GetNumberOf(0) == 1);
+            Assert.True(storePage.GetNumberOf(0) == 1); //to make it independent!!!
             Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 0));
         }
         [Test]
         public void Buyx2()
         {
+            //todo make it independent
+
             var tabName = "Item";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
@@ -103,6 +106,8 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void BuyInvincible()
         {
+            //todo make it independent
+
             var tabName = "Item";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
@@ -115,6 +120,8 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void BuyLife()
         {
+            //todo make it independent
+
             var tabName = "Item";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
@@ -127,6 +134,7 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void BuySafetyHat()
         {
+            //todo make it independent
             var tabName = "Accesories";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
@@ -138,6 +146,7 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void BuyPartyHat()
         {
+            //todo make it independent
             var tabName = "Accesories";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
@@ -156,6 +165,7 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void BuySmart()
         {
+            // make it independent
             var tabName = "Accesories";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
@@ -195,6 +205,7 @@ namespace alttrashcat_tests_csharp.tests
             var moneyAmount = storePage.GetTotalAmountOfMoney();
             storePage.GoToTab(tabName);
             storePage.BuyAllFromTab(tabName);
+            // todo make them independent
             Assert.True(storePage.GetNumberOf(0) == 1);
             Assert.True(storePage.GetNumberOf(1) == 1);
             Assert.True(storePage.GetNumberOf(2) == 1);
@@ -223,7 +234,6 @@ namespace alttrashcat_tests_csharp.tests
             int currentAmountOfFishbones = storePage.GetTotalAmountOfMoney();
             storePage.GetMoreMoney();
             Assert.True(storePage.GetTotalAmountOfMoney()-currentAmountOfFishbones == 1000000);
-            //1000000
         }
 
         [TearDown]

@@ -28,6 +28,9 @@ namespace alttrashcat_tests_csharp.pages
                 return true;
             return false;
         }
+        /// <summary>
+        /// tabName = Item, Character, Accesories, Themes
+        /// </summary>
         public void GoToTab(string tabName)
         {
             Driver.WaitForObject(By.NAME, tabName).Tap();
@@ -47,6 +50,9 @@ namespace alttrashcat_tests_csharp.pages
             StoreSecretMoneyButton.Click();
 
         }
+        /// <summary>
+        /// tabName = Items, Accesories, Character, Themes
+        /// </summary>
         public AltObject GetObjectsBuyButton(string tabName, int index, string endPath = "")
         {
             string tabNamePath = GetPathByTabName(tabName);
@@ -78,10 +84,16 @@ namespace alttrashcat_tests_csharp.pages
             var Objects = Driver.FindObjectsWhichContain(By.PATH, $"/Canvas/Background/{tabNamePath}/Container/ItemEntry(Clone)/NamePriceButtonZone/PriceButtonZone/PriceZone/PriceCoin/Amount");
             return int.Parse(Objects[index].GetText());
         }
+        /// <summary>
+        /// tabName = Items, Accesories, Character, Themes
+        /// </summary>
         public void Buy(string tabName, int index)
         {
             GetObjectsBuyButton(tabName, index).Tap();
         }
+        /// <summary>
+        /// tabName = Items, Accesories, Character, Themes
+        /// </summary>
         public void BuyAllFromTab(string tabName)
         {
             int index = 0;
@@ -190,9 +202,13 @@ namespace alttrashcat_tests_csharp.pages
         }
 
 
-
+        /// <summary>
+        /// tabName = Items, Character, Accessories, Themes???? is it this way?
+        /// index = the position of the element in the list
+        /// </summary>
         public string ChangeItemName(string tabName, int index, string newName)
         {
+
             const string propertyName = "text";
             AltObject NewObject = GetNameObjectByIndexInPage(tabName, index);
             // NewObject.SetComponentProperty("UnityEngine.UI.Text", propertyName, newName, "UnityEngine.UI");
