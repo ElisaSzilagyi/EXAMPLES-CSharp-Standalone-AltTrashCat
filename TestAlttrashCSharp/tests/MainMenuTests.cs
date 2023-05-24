@@ -28,10 +28,10 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestAssertMovingLogo()
         {
-            AltVector2 initialPosition = mainMenuPage.GetAltTesterLogo().GetScreenPosition();
+            AltVector2 initialPosition = mainMenuPage.AltTesterLogo.GetScreenPosition();
             mainMenuPage.MoveAltTesterLogo(30, 60);
-            Assert.True(initialPosition.x - mainMenuPage.GetAltTesterLogo().getScreenPosition().x == 30);
-            Assert.True(mainMenuPage.GetAltTesterLogo().getScreenPosition().y - initialPosition.y == 60);
+            Assert.True(initialPosition.x - mainMenuPage.AltTesterLogo.getScreenPosition().x == 30);
+            Assert.True(mainMenuPage.AltTesterLogo.getScreenPosition().y - initialPosition.y == 60);
 
         }
         [Test]

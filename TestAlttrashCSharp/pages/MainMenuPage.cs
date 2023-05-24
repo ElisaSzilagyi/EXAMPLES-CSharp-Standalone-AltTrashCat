@@ -35,12 +35,6 @@ namespace alttrashcat_tests_csharp.pages
                 return true;
             return false;
         }
-        public AltObject GetAltTesterLogo()
-        {
-            return AltTesterLogo;
-        }
-
-
 
         public void TapArrowButton(string section, string direction)
         {
