@@ -112,27 +112,30 @@ namespace alttrashcat_tests_csharp.pages
             var textFromPage = Driver.FindObjects(By.NAME, "Text");
             foreach (AltObject textObject in textFromPage)
             {
-                if (textObject.GetComponentProperty<string>("UnityEngine.UI.Text", "text", "UnityEngine.UI") == "LEADERBOARD")
+                string title = textObject.GetComponentProperty<string>("UnityEngine.UI.Text", "text", "UnityEngine.UI");
+                string buttonTitle = textObject.getParent().name;
+
+                switch (title)
                 {
-                    if (textObject.getParent().name != "OpenLeaderboard")
-                        everythingIsFine = false;
-                }
-                else if (textObject.GetComponentProperty<string>("UnityEngine.UI.Text", "text", "UnityEngine.UI") == "STORE")
-                {
-                    if (textObject.getParent().name != "StoreButton")
-                        everythingIsFine = false;
-                }
-                else if (textObject.GetComponentProperty<string>("UnityEngine.UI.Text", "text", "UnityEngine.UI") == "MISSIONS")
-                {
-                    if (textObject.getParent().name != "MissionButton")
-                        everythingIsFine = false;
-                }
-                else if (textObject.GetComponentProperty<string>("UnityEngine.UI.Text", "text", "UnityEngine.UI") == "Settings")
-                {
-                    if (textObject.getParent().name != "SettingButton")
-                        everythingIsFine = false;
+                    case "LEADERBOARD":
+                        if (buttonTitle != "OpenLeaderboard")
+                            everythingIsFine = false;
+                        break;
+                    case "STORE":
+                        if (buttonTitle != "StoreButton")
+                            everythingIsFine = false;
+                        break;
+                    case "MISSIONS":
+                        if (buttonTitle != "MissionButton")
+                            everythingIsFine = false;
+                        break;
+                    case "Settings":
+                        if (buttonTitle != "SettingButton")
+                            everythingIsFine = false;
+                        break;
                 }
             }
+
             return everythingIsFine;
         }
 
