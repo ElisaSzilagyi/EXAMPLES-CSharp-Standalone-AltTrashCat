@@ -198,7 +198,7 @@ namespace alttrashcat_tests_csharp.pages
             // NewObject.SetComponentProperty("UnityEngine.UI.Text", propertyName, newName, "UnityEngine.UI");
             NewObject.SetText(newName, true);
 
-            var propertyValue = TotalFishbones.GetComponentProperty<string>("UnityEngine.UI.Text", propertyName, "UnityEngine.UI");
+            var propertyValue = NewObject.GetComponentProperty<string>("UnityEngine.UI.Text", propertyName, "UnityEngine.UI");
             return propertyValue;
         }
         public int GetTotalAmountOfMoney()
