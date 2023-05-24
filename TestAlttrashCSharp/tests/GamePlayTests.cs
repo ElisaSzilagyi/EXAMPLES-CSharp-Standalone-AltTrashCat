@@ -15,6 +15,18 @@ namespace alttrashcat_tests_csharp.tests
         GamePlay gamePlayPage;
         PauseOverlayPage pauseOverlayPage;
         GetAnotherChancePage getAnotherChancePage;
+        /// <summary>
+        /// buy with items, characters, accessories elements' indexes.
+        /// </summary>
+        public void BuyFromStore(int[] fromItems = null, int[] fromCharacters = null, int[] fromAccessories = null)
+        {
+            if (fromItems.Length > 0)
+                foreach (int itemIndex in fromItems) storePage.Buy("Item", itemIndex);
+            if (fromCharacters.Length > 0)
+                foreach (int characterIndex in fromCharacters) storePage.Buy("Item", characterIndex);
+            if (fromAccessories.Length > 0)
+                foreach (int accessoryIndex in fromAccessories) storePage.Buy("Item", accessoryIndex);
+        }
         [SetUp]
         public void Setup()
         {
@@ -25,14 +37,7 @@ namespace alttrashcat_tests_csharp.tests
             storePage.Load();
             storePage.GetMoreMoney();
 
-            storePage.GoToTab("Item");
-            storePage.Buy("Item", 0);
-            storePage.GoToTab("Character");
-            storePage.Buy("Character", 1);
-            storePage.GoToTab("Accesories");
-            storePage.Buy("Accesories", 0);
-            storePage.GoToTab("Themes");
-            storePage.Buy("Themes", 1);
+            BuyFromStore(new int[] { 0, 1 }, new int[] { 1 }, new int[] { 0, 1 });
 
             mainMenuPage = new MainMenuPage(altDriver);
             mainMenuPage.LoadScene();
@@ -125,7 +130,7 @@ namespace alttrashcat_tests_csharp.tests
             var timeScaleFromGame = altDriver.GetTimeScale();
             Assert.AreEqual(0.1f, timeScaleFromGame);
             //teardown
-            
+
         }
 
         [Test]
