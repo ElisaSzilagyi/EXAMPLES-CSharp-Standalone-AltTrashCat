@@ -35,11 +35,12 @@ namespace alttrashcat_tests_csharp.pages
                 return true;
             return false;
         }
-
+        /// <summary>
+        /// section = character, power, theme
+        /// direction = Right, Left
+        /// </summary>
         public void TapArrowButton(string section, string direction)
         {
-            // section shoud be one of these: character, power, theme
-            // direction should be Right or Left
             string path = "/UICamera/Loadout";
             if (section == "character")
                 path += $"/CharZone/CharName/CharSelector/Button{direction}";
@@ -70,10 +71,9 @@ namespace alttrashcat_tests_csharp.pages
             return CharacterName.GetComponentProperty<string>("UnityEngine.UI.Text", "text", "UnityEngine.UI");
         }
 
-        public void MoveAltTesterLogo(int xMoving = 20, int yMoving = 20)
+        public void MoveObject(AltObject obj, int xMoving = 20, int yMoving = 20)
         {
-            // var initialPosition = new AltVector2(AltTesterLogo.x, AltTesterLogo.y);
-            AltVector2 initialPosition = AltTesterLogo.GetScreenPosition();
+            AltVector2 initialPosition = obj.GetScreenPosition();
             int fingerId = Driver.BeginTouch(initialPosition);
             AltVector2 newPosition = new AltVector2(AltTesterLogo.x - xMoving, AltTesterLogo.y + yMoving);
             Driver.MoveTouch(fingerId, newPosition);
