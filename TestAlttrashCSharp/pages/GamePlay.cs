@@ -37,21 +37,10 @@ namespace alttrashcat_tests_csharp.pages
         }
         public bool CharacterIsMoving()
         {
-            AltObject TrashCat = Driver.WaitForObject(By.NAME, "PlayerPivot");
-
             AltVector3 characterInitialPosition = Character.GetWorldPosition();
             AvoidObstacles(3);
-            Console.WriteLine("Initial position x: " + characterInitialPosition.x);
-            Console.WriteLine("Initial position y: " + characterInitialPosition.y);
-            Console.WriteLine("Initial position z: " + characterInitialPosition.z);
 
-            Console.WriteLine("Current position x: " + TrashCat.GetWorldPosition().x);
-            Console.WriteLine("Current position y: " + TrashCat.GetWorldPosition().y);
-            Console.WriteLine("Current position z: " + TrashCat.UpdateObject().GetWorldPosition().z);
-
-            // return (characterInitialPosition.z != TrashCat.GetWorldPosition().z);
-            return(characterInitialPosition.z != TrashCat.UpdateObject().GetWorldPosition().z);
-
+            return(characterInitialPosition.z != Character.UpdateObject().GetWorldPosition().z);
         }
         public void AvoidObstacles(int numberOfObstacles)
         {
