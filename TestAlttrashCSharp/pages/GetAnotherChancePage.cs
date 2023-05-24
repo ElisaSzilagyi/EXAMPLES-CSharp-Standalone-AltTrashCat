@@ -22,10 +22,6 @@ namespace alttrashcat_tests_csharp.pages
                 return true;
             return false;
         }
-        public void PressGameOver()
-        {
-            GameOverButton.Tap();
-        }
 
         public object GetCurrentColorDetails(AltObject button)
         {
@@ -49,21 +45,29 @@ namespace alttrashcat_tests_csharp.pages
             object state = button.CallComponentMethod<object>("UnityEngine.UI.Button", "get_colors", "UnityEngine.UI", new object[] { });
             return state;
         }
-
-        public string GetStateRefference(int index)
+        public string GetStateReference(int index)
         {
-            if (index == 0) return "normalColor";
-            if (index == 1) return "highlightedColor";
-            if (index == 2) return "pressedColor";
-            if (index == 3) return "selectedColor";
-            if (index == 4) return "disabledColor";
-            return "";
+            switch (index)
+            {
+                case 0:
+                    return "normalColor";
+                case 1:
+                    return "highlightedColor";
+                case 2:
+                    return "pressedColor";
+                case 3:
+                    return "selectedColor";
+                case 4:
+                    return "disabledColor";
+                default:
+                    return "";
+            }
         }
 
         public float GetExpectedColorCodeValue(AltObject button, string rgbChar)
         {
             int currentState = GetCurrentStateNumber(button);
-            string expectedStateRefference = GetStateRefference(currentState);
+            string expectedStateRefference = GetStateReference(currentState);
             object listOfStates = GetListOfStates(button);
 
             string json = JsonConvert.SerializeObject(listOfStates);
@@ -145,10 +149,6 @@ namespace alttrashcat_tests_csharp.pages
         public AltObject GetAnotherChanceButton()
         {
             return PremiumButton;
-        }
-        public void PressPayForAnotherChanceButton()
-        {
-            PremiumButton.Tap();
         }
     }
 }
