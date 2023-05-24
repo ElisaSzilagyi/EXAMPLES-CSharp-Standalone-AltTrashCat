@@ -91,6 +91,13 @@ namespace alttrashcat_tests_csharp.pages
             // float rInitialColor = colorData.r;
 
         }
+        public float GetRFromCurrentColor(AltObject obj){
+            object initialColor = GetCurrentColorDetails(obj);
+            string json = JsonConvert.SerializeObject(initialColor);
+            dynamic colorData = JsonConvert.DeserializeObject(json);
+            float rInitialColor = colorData.r;
+            return rInitialColor;
+        }
 
         public bool AssertDifferentColorsOnPressing(AltObject button)
         {
@@ -99,19 +106,14 @@ namespace alttrashcat_tests_csharp.pages
             // get current color
             // get current state
             // compare the current color with the color tha the state should have.
-            object initialColor = GetCurrentColorDetails(button);
-            string json = JsonConvert.SerializeObject(initialColor);
-            dynamic colorData = JsonConvert.DeserializeObject(json);
-            float rInitialColor = colorData.r;
+
+            float rInitialColor = GetRFromCurrentColor(button);
 
             button.PointerDownFromObject();
             Thread.Sleep(1000);
-            // button.UpdateObject();
 
-            object afterPointingDownColor = GetCurrentColorDetails(button);
-            string json2 = JsonConvert.SerializeObject(afterPointingDownColor);
-            dynamic colorData2 = JsonConvert.DeserializeObject(json2);
-            float rAfterPointerDownColor = colorData2.r;
+            float rAfterPointerDownColor = GetRFromCurrentColor(button);
+            
             Console.WriteLine("--------------------------------------");
             Console.WriteLine("r initial color:" + rInitialColor);
             Console.WriteLine("r after pointing down color:" + rAfterPointerDownColor);
