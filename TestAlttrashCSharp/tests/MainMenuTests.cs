@@ -78,18 +78,18 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestGetApplicationScreenSize()
         {
-            altDriver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule", new string[] { "1920", "1080", "false" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
-            // altDriver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule", new string[] { "1240", "680", "true" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
-            
-            // Driver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule", parameters, typeOfParameters);
-            
-            var screensize = altDriver.GetApplicationScreenSize();
-            Console.WriteLine("Screensize x: " + screensize.x);
-            Console.WriteLine("Screensize y: " + screensize.y);
+            altDriver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule",
+            new string[] { "1920", "1080", "false" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
 
-            Assert.AreEqual(1920, screensize.x);
-            Assert.AreEqual(1080, screensize.y);
-            mainMenuPage.SetScreenResolutionUsingCallStaticMethod("1240", "680");
+            var screensize = altDriver.GetApplicationScreenSize();
+
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(1920, screensize.x);
+                Assert.AreEqual(1080, screensize.y);
+                mainMenuPage.SetScreenResolutionUsingCallStaticMethod("1240", "680");
+            });
+
         }
 
         [Test]
