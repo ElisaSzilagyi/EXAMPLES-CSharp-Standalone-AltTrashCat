@@ -161,7 +161,6 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestDisplayAllEnabledElementsFromAnotherChancePage()
         {
-            // is this a test?
             gamePlayPage.AvoidObstacles(3);
             getAnotherChancePage.DisplayAllEnabledElements();
         }

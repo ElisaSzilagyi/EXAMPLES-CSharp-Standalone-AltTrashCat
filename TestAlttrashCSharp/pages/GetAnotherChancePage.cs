@@ -31,8 +31,9 @@ namespace alttrashcat_tests_csharp.pages
         public void DisplayAllEnabledElements()
         {
             List<AltObject> altObjects = Driver.GetAllElements(enabled: true);
-            foreach (AltObject obj in altObjects)
-                Console.WriteLine("AltObject from list: " + obj.name);
+            Console.WriteLine("Number of enabled elements: "+  altObjects.Count);
+            // foreach (AltObject obj in altObjects)
+                // Console.WriteLine("AltObject from list: " + obj.name);
         }
 
         public int GetCurrentStateNumber(AltObject button)
