@@ -15,13 +15,13 @@ namespace alttrashcat_tests_csharp.tests
         GamePlay gamePlayPage;
         PauseOverlayPage pauseOverlayPage;
         GetAnotherChancePage getAnotherChancePage;
+
         /// <summary>
         /// buy with items, characters, accessories elements' indexes.
         /// </summary>
         public void BuyFromStore(int[] fromItems = null, int[] fromCharacters = null, int[] fromAccessories = null, int[] fromThemes = null)
         {
             storePage = new StorePage(altDriver);
-
             storePage.Load();
             storePage.GetMoreMoney();
 
@@ -49,10 +49,10 @@ namespace alttrashcat_tests_csharp.tests
                 foreach (int themeIndex in fromThemes) storePage.Buy("Themes", themeIndex);
             }
         }
+
         [SetUp]
         public void Setup()
         {
-
             altDriver = new AltDriver();
             storePage = new StorePage(altDriver);
             mainMenuPage = new MainMenuPage(altDriver);
@@ -66,8 +66,8 @@ namespace alttrashcat_tests_csharp.tests
             gamePlayPage = new GamePlay(altDriver);
             pauseOverlayPage = new PauseOverlayPage(altDriver);
             getAnotherChancePage = new GetAnotherChancePage(altDriver);
-
         }
+
         [Test]
         public void TestAssertCharacterIsMoving()
         {
@@ -138,10 +138,6 @@ namespace alttrashcat_tests_csharp.tests
             Assert.True(getAnotherChancePage.GetExpectedColorCodeValue(PremiumButton, "r") == getAnotherChancePage.GetCurrentColorCodeValue(PremiumButton, "r"));
             Assert.True(getAnotherChancePage.GetExpectedColorCodeValue(PremiumButton, "g") == getAnotherChancePage.GetCurrentColorCodeValue(PremiumButton, "g"));
             Assert.True(getAnotherChancePage.GetExpectedColorCodeValue(PremiumButton, "b") == getAnotherChancePage.GetCurrentColorCodeValue(PremiumButton, "b"));
-
-            // Console.WriteLine("Expected r is: "+ getAnotherChancePage.GetExpectedColorCodeValue(getAnotherChancePage.GetAnotherChanceButton(), "r"));
-            // Console.WriteLine("Current r is: "+ getAnotherChancePage.GetCurrentColorCodeValue(getAnotherChancePage.GetAnotherChanceButton(), "r"));
-
         }
 
         [Test]
@@ -154,7 +150,6 @@ namespace alttrashcat_tests_csharp.tests
             {
                 Assert.AreEqual(0.1f, timeScaleFromGame);
                 altDriver.SetTimeScale(1f);
-
             });
         }
 
