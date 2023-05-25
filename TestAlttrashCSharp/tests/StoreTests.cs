@@ -65,15 +65,16 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestBuyMagnet()
         {
-            //todo make it independent
-
             var tabName = "Item";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
             var moneyAmount = storePage.GetTotalAmountOfMoney();
+            
             storePage.GoToTab(tabName);
-            storePage.Buy(tabName, 0);
-            Assert.True(storePage.GetNumberOf(0) == 1); //to make it independent!!!
+            var currentNumOfMagnets = storePage.GetNumberOf(0);
+
+            storePage.Buy(tabName, 0); //buy a magnet
+            Assert.True(storePage.GetNumberOf(0) - currentNumOfMagnets == 1);
             Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 0));
         }
         [Test]
