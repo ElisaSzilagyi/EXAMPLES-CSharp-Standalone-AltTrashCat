@@ -88,17 +88,18 @@ namespace alttrashcat_tests_csharp.pages
 
 
 
-        public void GetAllButtons()
+        public List<string> GetAllButtons()
         {
             var allButtons = Driver.FindObjectsWhichContain(By.NAME, "Button");
+            allButtons.Add(Driver.FindObjectWhichContains(By.NAME, "Leaderboard"));
+            List<string> buttonsNames = new List<string>();
             foreach (var button in allButtons)
             {
                 var path = Driver;
-                // get button's path
-                // go to text path based on button's path
-                // check text / print it
-                Console.WriteLine(button.GetComponentProperty<string>("UnityEngine.UI.Button", "name", "UnityEngine.UI"));
+                buttonsNames.Add(button.GetComponentProperty<string>("UnityEngine.UI.Button", "name", "UnityEngine.UI"));
+                // Console.WriteLine(button.GetComponentProperty<string>("UnityEngine.UI.Button", "name", "UnityEngine.UI"));
             }
+            return buttonsNames;
         }
 
         public void PressRun()
