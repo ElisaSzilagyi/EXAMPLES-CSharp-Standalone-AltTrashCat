@@ -52,19 +52,6 @@ namespace alttrashcat_tests_csharp.tests
         {
             Assert.True(storePage.DifferentStateWhenPressingBtn());
         }
-        // [Test]
-        // public void AssertSameColorWhenStopPressing(){
-        //     // Assert.True(storePage.SameColorWhenStopPressing());
-        //     Console.WriteLine(storePage.SameColorWhenStopPressing());
-        // }
-        [Test]
-        public void TestPrintCurrentColor()
-        {
-            storePage.GoToTab("Character");
-            Console.WriteLine("here!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-            Console.WriteLine(storePage.PrintCurrentColor());
-            // storePage.PrintCurrentColor();
-        }
 
         [Test]
         public void TestNewMagnetName()
