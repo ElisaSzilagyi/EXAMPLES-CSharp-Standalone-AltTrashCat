@@ -150,9 +150,12 @@ namespace alttrashcat_tests_csharp.tests
             altDriver.SetTimeScale(0.1f);
             Thread.Sleep(1000);
             var timeScaleFromGame = altDriver.GetTimeScale();
-            Assert.AreEqual(0.1f, timeScaleFromGame);
-            //teardown
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual(0.1f, timeScaleFromGame);
+                altDriver.SetTimeScale(1f);
 
+            });
         }
 
         [Test]
