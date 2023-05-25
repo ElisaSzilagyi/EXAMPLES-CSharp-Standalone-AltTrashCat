@@ -37,7 +37,13 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestPrintAllButtonsFromPage()
         {
-            mainMenuPage.GetAllButtons();
+            List<string> buttonsNames = new List<string>(mainMenuPage.GetAllButtons());
+            Assert.True(buttonsNames.Contains("OpenLeaderboard"));
+            Assert.True(buttonsNames.Contains("StoreButton"));
+            Assert.True(buttonsNames.Contains("MissionButton"));
+            Assert.True(buttonsNames.Contains("SettingButton"));
+            Assert.True(buttonsNames.Contains("StoreButton"));
+            Assert.True(buttonsNames.Contains("StartButton"));
         }
         [Test]
         public void TestButtonsAreCorrectlyDisplayed()
