@@ -140,6 +140,14 @@ namespace alttrashcat_tests_csharp.pages
             return everythingIsFine;
         }
 
+        public AltVector2 GetScreenSize()
+        {
+            var width = Driver.GetStaticProperty<int>("UnityEngine.Screen", "currentResolution.width", "UnityEngine.CoreModule");
+            var height = Driver.GetStaticProperty<int>("UnityEngine.Screen", "currentResolution.height", "UnityEngine.CoreModule");
+            AltVector2 size = new AltVector2(width, height);
+            return size;
+        }
+
         public void DeleteData()
         {
             SettingsButton.Tap();

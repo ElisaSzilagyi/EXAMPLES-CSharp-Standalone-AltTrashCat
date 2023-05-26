@@ -83,14 +83,17 @@ namespace alttrashcat_tests_csharp.tests
         {
             altDriver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule",
             new string[] { "1920", "1080", "false" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
-            // to transporm this into a method in page
 
             var screensize = altDriver.GetApplicationScreenSize();
+            var sizeAsProperty = mainMenuPage.GetScreenSize();
 
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(1920, screensize.x);
                 Assert.AreEqual(1080, screensize.y);
+                Assert.AreEqual(1920, sizeAsProperty.x);
+                Assert.AreEqual(1080, sizeAsProperty.y);
+
                 mainMenuPage.SetScreenResolutionUsingCallStaticMethod("380", "600");
             });
         }
