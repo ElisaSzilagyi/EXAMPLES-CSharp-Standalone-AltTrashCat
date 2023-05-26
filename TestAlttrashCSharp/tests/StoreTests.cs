@@ -11,6 +11,16 @@ namespace alttrashcat_tests_csharp.tests
         private AltDriver altDriver;
         private StorePage storePage;
         MainMenuPage mainMenuPage;
+        public void AssertBuyItem(int index)
+        {
+            var tabName = "Item";
+            var moneyAmount = storePage.GetTotalAmountOfMoney();
+            storePage.GoToTab(tabName);
+            var initialNumber = storePage.GetNumberOf(index);
+            storePage.Buy(tabName, index);
+            Assert.True(storePage.GetNumberOf(index) - initialNumber == 1);
+            Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, index));
+        }
         // private StartPage startPage;
         [SetUp]
         public void Setup()
@@ -69,7 +79,7 @@ namespace alttrashcat_tests_csharp.tests
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
             var moneyAmount = storePage.GetTotalAmountOfMoney();
-            
+
             storePage.GoToTab(tabName);
             var currentNumOfMagnets = storePage.GetNumberOf(0);
 
@@ -94,8 +104,6 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestBuyInvincible()
         {
-            //todo make it independent
-
             var tabName = "Item";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
@@ -176,17 +184,9 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestBuyAllItems()
         {
-            var tabName = "Item";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
-            storePage.GoToTab(tabName);
-            storePage.BuyAllFromTab(tabName);
-            // todo make them independent
-            Assert.True(storePage.GetNumberOf(0) == 1);
-            Assert.True(storePage.GetNumberOf(1) == 1);
-            Assert.True(storePage.GetNumberOf(2) == 1);
-            Assert.True(storePage.GetNumberOf(3) == 1);
+            for (int i = 0; i < 3; i++) AssertBuyItem(i);
         }
         [Test]
         public void TestCheckIfFishbonesAmountIsNextToIcon()
