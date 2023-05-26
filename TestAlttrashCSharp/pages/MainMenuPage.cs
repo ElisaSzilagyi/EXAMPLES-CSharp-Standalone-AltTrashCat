@@ -17,15 +17,11 @@ namespace alttrashcat_tests_csharp.pages
         public AltObject SettingsButton { get => Driver.WaitForObject(By.NAME, "SettingButton", timeout: 10); }
         public AltObject DeleteDataBtn { get => Driver.WaitForObject(By.PATH, "/UICamera/Loadout/SettingPopup/Background/DeleteData", timeout: 10); }
         public AltObject ConfirmDeleteDataBtn { get => Driver.WaitForObject(By.NAME, "YESButton", timeout: 10); }
-
         public AltObject MissionButton { get => Driver.WaitForObject(By.NAME, "MissionButton", timeout: 10); }
         public AltObject RunButton { get => Driver.WaitForObject(By.NAME, "StartButton", timeout: 10); }
         public AltObject CharacterName { get => Driver.WaitForObject(By.NAME, "CharName", timeout: 10); }
-
         public AltObject ThemeName { get => Driver.WaitForObject(By.NAME, "ThemeZone", timeout: 10); }
         public AltObject RightCharacterBtn { get => Driver.WaitForObject(By.PATH, "/UICamera/Loadout/CharZone/CharName/CharSelector/ButtonRight", timeout: 10); }
-        // /UICamera/Loadout/ThemeZone/ThemeSelector/ButtonRight
-
         public AltObject AltTesterLogo { get => Driver.WaitForObject(By.PATH, "/AltTesterPrefab/AltUnityDialog/Icon", timeout: 10); }
 
 
@@ -35,6 +31,7 @@ namespace alttrashcat_tests_csharp.pages
                 return true;
             return false;
         }
+
         /// <summary>
         /// section = character, power, theme
         /// direction = Right, Left
@@ -86,8 +83,6 @@ namespace alttrashcat_tests_csharp.pages
             return Driver.GetStringKeyPlayerPref(key);
         }
 
-
-
         public List<string> GetAllButtons()
         {
             var allButtons = Driver.FindObjectsWhichContain(By.NAME, "Button");
@@ -97,7 +92,6 @@ namespace alttrashcat_tests_csharp.pages
             {
                 var path = Driver;
                 buttonsNames.Add(button.GetComponentProperty<string>("UnityEngine.UI.Button", "name", "UnityEngine.UI"));
-                // Console.WriteLine(button.GetComponentProperty<string>("UnityEngine.UI.Button", "name", "UnityEngine.UI"));
             }
             return buttonsNames;
         }
@@ -114,7 +108,7 @@ namespace alttrashcat_tests_csharp.pages
             foreach (AltObject textObject in textFromPage)
             {
                 string title = textObject.GetComponentProperty<string>("UnityEngine.UI.Text", "text", "UnityEngine.UI");
-                string buttonTitle = textObject.getParent().name;
+                string buttonTitle = textObject.GetParent().name;
 
                 switch (title)
                 {

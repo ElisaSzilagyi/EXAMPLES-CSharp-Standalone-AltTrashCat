@@ -13,7 +13,6 @@ namespace alttrashcat_tests_csharp.pages
         public AltObject Character { get => Driver.WaitForObject(By.NAME, "PlayerPivot"); }
         public AltObject ActivateMagnetButton { get => Driver.WaitForObject(By.NAME, "Inventory", timeout: 2); }
 
-
         public bool IsDisplayed()
         {
             if (PauseButton != null && Character != null)
@@ -22,10 +21,12 @@ namespace alttrashcat_tests_csharp.pages
             }
             return false;
         }
+
         public void PressPause()
         {
             PauseButton.Tap();
         }
+
         public int GetCurrentLife()
         {
             return Character.GetComponentProperty<int>("CharacterInputController", "currentLife", "Assembly-CSharp");
@@ -35,6 +36,7 @@ namespace alttrashcat_tests_csharp.pages
         {
             ActivateMagnetButton.Tap();
         }
+
         public bool CharacterIsMoving()
         {
             AltVector3 characterInitialPosition = Character.GetWorldPosition();
@@ -42,6 +44,7 @@ namespace alttrashcat_tests_csharp.pages
 
             return(characterInitialPosition.z != Character.UpdateObject().GetWorldPosition().z);
         }
+
         public void AvoidObstacles(int numberOfObstacles)
         {
             var character = Character;
@@ -53,10 +56,6 @@ namespace alttrashcat_tests_csharp.pages
                 allObstacles.Sort((x, y) => x.worldZ.CompareTo(y.worldZ));
                 allObstacles.RemoveAll(obs => obs.worldZ < character.worldZ);
                 var obstacle = allObstacles[0];
-
-                System.Console.WriteLine("Obstacle: " + obstacle.name + ", z:" + obstacle.worldZ + ", x:" + obstacle.worldX);
-                System.Console.WriteLine("Next: " + allObstacles[1].name + ", z:" + allObstacles[1].worldZ + ", x:" + allObstacles[1].worldX);
-
                 while (obstacle.worldZ - character.worldZ > 5)
                 {
                     obstacle = Driver.FindObject(By.ID, obstacle.id.ToString());
@@ -131,7 +130,6 @@ namespace alttrashcat_tests_csharp.pages
                     movedRight = false;
                 }
             }
-
 
         }
     }
