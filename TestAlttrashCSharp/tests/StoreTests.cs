@@ -10,7 +10,7 @@ namespace alttrashcat_tests_csharp.tests
     {
         private AltDriver altDriver;
         private StorePage storePage;
-        MainMenuPage mainMenuPage;
+        private MainMenuPage mainMenuPage;
         public void AssertBuyItem(int index)
         {
             var tabName = "Item";
@@ -156,13 +156,17 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestBuySmart()
         {
-            // make it independent
+            mainMenuPage = new MainMenuPage(altDriver);
+            mainMenuPage.LoadScene();
+            mainMenuPage.DeleteData();
+            storePage.Load();
             var tabName = "Accesories";
             storePage.GoToTab("Character");
             storePage.GetMoreMoney();
             var moneyAmount = storePage.GetTotalAmountOfMoney();
             storePage.GoToTab(tabName);
             storePage.Buy(tabName, 2);
+
             Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 2));
         }
         [Test]
