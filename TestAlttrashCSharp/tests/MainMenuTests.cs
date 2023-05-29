@@ -26,12 +26,18 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestAssertMovingLogo()
         {
-            AltVector2 initialPosition = mainMenuPage.AltTesterLogo.GetScreenPosition();
+            Thread.Sleep(1000);
+            AltVector2 initialPosition = mainMenuPage.GetAltTesterLogo().GetScreenPosition();
+            Console.WriteLine("Initial x position: "+ initialPosition.x);
+            Console.WriteLine("Initial y position: "+ initialPosition.y);
 
-            mainMenuPage.MoveObject(mainMenuPage.AltTesterLogo, 30, 60);
+            mainMenuPage.MoveObject(mainMenuPage.GetAltTesterLogo(), 30, 60);
+            Console.WriteLine("Current x position: "+ mainMenuPage.GetAltTesterLogo().GetScreenPosition().x);
+            Console.WriteLine("Current y position: "+ mainMenuPage.GetAltTesterLogo().GetScreenPosition().y);
 
-            Assert.True(initialPosition.x - mainMenuPage.AltTesterLogo.GetScreenPosition().x == 30);
-            Assert.True(mainMenuPage.AltTesterLogo.GetScreenPosition().y - initialPosition.y == 60);
+
+            Assert.AreEqual(30, initialPosition.x - mainMenuPage.GetAltTesterLogo().GetScreenPosition().x);
+            Assert.AreEqual(60, mainMenuPage.GetAltTesterLogo().GetScreenPosition().y - initialPosition.y);
         }
         [Test]
         public void TestPrintAllButtonsFromPage()
@@ -92,8 +98,9 @@ namespace alttrashcat_tests_csharp.tests
                 Assert.AreEqual(1080, screensize.y);
                 Assert.AreEqual(1920, sizeAsProperty.x);
                 Assert.AreEqual(1080, sizeAsProperty.y);
-
-                mainMenuPage.SetScreenResolutionUsingCallStaticMethod("380", "600");
+                altDriver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule",
+                            new string[] { "400", "700", "false" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
+                // mainMenuPage.SetScreenResolutionUsingCallStaticMethod("380", "600");
             });
         }
 

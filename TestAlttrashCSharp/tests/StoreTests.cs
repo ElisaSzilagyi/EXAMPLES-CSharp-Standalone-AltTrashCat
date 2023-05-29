@@ -11,6 +11,7 @@ namespace alttrashcat_tests_csharp.tests
         private AltDriver altDriver;
         private StorePage storePage;
         private MainMenuPage mainMenuPage;
+
         public void AssertBuyItem(int index)
         {
             var tabName = "Item";
@@ -26,8 +27,8 @@ namespace alttrashcat_tests_csharp.tests
                 Assert.True(storePage.GetNumberOf(index) - initialNumber == 1);
                 Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, index));
             });
-
         }
+
         public void AssertBuyAccessory(int index)
         {
             var tabName = "Accesories";
@@ -48,8 +49,8 @@ namespace alttrashcat_tests_csharp.tests
                 Assert.True(storePage.AssertOwning(tabName, index));
                 //todo to check also price 2
             }
-
         }
+
         public void DeleteAllData()
         {
             mainMenuPage = new MainMenuPage(altDriver);
@@ -65,6 +66,7 @@ namespace alttrashcat_tests_csharp.tests
             storePage = new StorePage(altDriver);
             storePage.Load();
         }
+
         [Test]
         public void TestGetMoreMoney()
         {
@@ -72,6 +74,7 @@ namespace alttrashcat_tests_csharp.tests
             storePage.GetMoreMoney();
             Assert.True(storePage.GetTotalAmountOfMoney() - currentAmountOfFishbones == 1000000);
         }
+
         [Test]
         public void TestStoreIsDisplayed()
         {
@@ -111,6 +114,7 @@ namespace alttrashcat_tests_csharp.tests
         {
             AssertBuyItem(3);
         }
+
         [Test]
         public void TestBuyAllItems()
         {
@@ -118,6 +122,7 @@ namespace alttrashcat_tests_csharp.tests
             storePage.GetMoreMoney();
             for (int i = 0; i < 3; i++) AssertBuyItem(i);
         }
+
         [Test]
         public void TestAssertOwningTrashCatCharacter()
         {
@@ -125,6 +130,7 @@ namespace alttrashcat_tests_csharp.tests
             storePage.GoToTab(tabName);
             Assert.True(storePage.AssertOwning(tabName, 0));
         }
+
         [Test]
         public void TestBuyRaccoon()
         {
@@ -134,18 +140,15 @@ namespace alttrashcat_tests_csharp.tests
 
             storePage.GoToTab(tabName);
             storePage.Buy(tabName, 1);
-
-            Assert.Multiple(() =>
-            {
-                Assert.True(storePage.AssertOwning(tabName, 1));
-            });
+            Assert.True(storePage.AssertOwning(tabName, 1));
         }
+
         [Test]
         public void TestBuySafetyHat()
         {
             AssertBuyAccessory(0);
         }
-        
+
         [Test]
         public void TestBuyPartyHat()
         {
@@ -157,10 +160,9 @@ namespace alttrashcat_tests_csharp.tests
         [Test]
         public void TestBuySmart()
         {
-
             AssertBuyAccessory(2);
-
         }
+
         [Test]
         public void TestBuyAllHats()
         {

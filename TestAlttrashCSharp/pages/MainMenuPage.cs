@@ -31,6 +31,10 @@ namespace alttrashcat_tests_csharp.pages
                 return true;
             return false;
         }
+        public AltObject GetAltTesterLogo(){
+            AltTesterLogo.UpdateObject();
+            return AltTesterLogo;
+        }
 
         /// <summary>
         /// section = character, power, theme
