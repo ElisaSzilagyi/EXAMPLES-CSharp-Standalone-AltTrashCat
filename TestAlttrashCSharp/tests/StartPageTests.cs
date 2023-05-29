@@ -18,7 +18,6 @@ namespace alttrashcat_tests_csharp.tests
             startPage = new StartPage(altDriver);
             startPage.Load();
             mainMenuPage = new MainMenuPage(altDriver);
-
         }
         [Test]
         public void TestStartPageLoadedCorrectly()

@@ -14,14 +14,50 @@ namespace alttrashcat_tests_csharp.tests
         public void AssertBuyItem(int index)
         {
             var tabName = "Item";
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
+            storePage.GetMoreMoney();
             storePage.GoToTab(tabName);
+
+            var moneyAmount = storePage.GetTotalAmountOfMoney();
+
             var initialNumber = storePage.GetNumberOf(index);
             storePage.Buy(tabName, index);
-            Assert.True(storePage.GetNumberOf(index) - initialNumber == 1);
-            Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, index));
+            Assert.Multiple(() =>
+            {
+                Assert.True(storePage.GetNumberOf(index) - initialNumber == 1);
+                Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, index));
+            });
+
         }
-        // private StartPage startPage;
+        public void AssertBuyAccessory(int index)
+        {
+            var tabName = "Accesories";
+            storePage.GetMoreMoney();
+            storePage.GoToTab(tabName);
+
+            var initialMoneyAmount = storePage.GetTotalAmountOfMoney();
+            bool isOwned = storePage.AssertOwning(tabName, index);
+            storePage.Buy(tabName, index);
+
+
+            if (isOwned)
+                Assert.True(initialMoneyAmount == storePage.GetTotalAmountOfMoney());
+
+            else
+            {
+                Assert.True(initialMoneyAmount - storePage.GetPriceOf(tabName, index) == storePage.GetTotalAmountOfMoney());
+                Assert.True(storePage.AssertOwning(tabName, index));
+                //todo to check also price 2
+            }
+
+        }
+        public void DeleteAllData()
+        {
+            mainMenuPage = new MainMenuPage(altDriver);
+            mainMenuPage.LoadScene();
+            mainMenuPage.DeleteData();
+        }
+
+
         [SetUp]
         public void Setup()
         {
@@ -30,21 +66,16 @@ namespace alttrashcat_tests_csharp.tests
             storePage.Load();
         }
         [Test]
+        public void TestGetMoreMoney()
+        {
+            int currentAmountOfFishbones = storePage.GetTotalAmountOfMoney();
+            storePage.GetMoreMoney();
+            Assert.True(storePage.GetTotalAmountOfMoney() - currentAmountOfFishbones == 1000000);
+        }
+        [Test]
         public void TestStoreIsDisplayed()
         {
             Assert.True(storePage.IsDisplayed());
-        }
-
-        [Test]
-        public void TestBuyRaccoon()
-        {
-            var tabName = "Character";
-            // var characterName = "Raccoon";
-            storePage.GoToTab("Item");
-            storePage.GetMoreMoney();
-            storePage.GoToTab(tabName);
-            storePage.Buy(tabName, 1);
-            Assert.True(storePage.AssertOwning(tabName, 1));
         }
 
         [Test]
@@ -58,132 +89,27 @@ namespace alttrashcat_tests_csharp.tests
         }
 
         [Test]
-        public void TestDifferentColorsOnPressing()
-        {
-            Assert.True(storePage.DifferentStateWhenPressingBtn());
-        }
-
-        [Test]
-        public void TestNewMagnetName()
-        {
-            string value = "magneeeeeeet";
-            string tabName = "Items";
-            string newName = storePage.ChangeItemName(tabName, 0, value);
-            Assert.AreEqual(value, newName);
-        }
-
-        [Test]
         public void TestBuyMagnet()
         {
-            var tabName = "Item";
-            storePage.GoToTab("Character");
-            storePage.GetMoreMoney();
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
-
-            storePage.GoToTab(tabName);
-            var currentNumOfMagnets = storePage.GetNumberOf(0);
-
-            storePage.Buy(tabName, 0); //buy a magnet
-            Assert.True(storePage.GetNumberOf(0) - currentNumOfMagnets == 1);
-            Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 0));
+            AssertBuyItem(0);
         }
+
         [Test]
         public void TestBuyx2()
         {
-            //todo make it independent
-
-            var tabName = "Item";
-            storePage.GoToTab("Character");
-            storePage.GetMoreMoney();
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
-            storePage.GoToTab(tabName);
-            storePage.Buy(tabName, 1);
-            Assert.True(storePage.GetNumberOf(1) == 1);
-            Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 1));
+            AssertBuyItem(1);
         }
+
         [Test]
         public void TestBuyInvincible()
         {
-            var tabName = "Item";
-            storePage.GoToTab("Character");
-            storePage.GetMoreMoney();
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
-            storePage.GoToTab(tabName);
-            storePage.Buy(tabName, 2);
-            Assert.True(storePage.GetNumberOf(2) == 1);
-            Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 2));
+            AssertBuyItem(2);
         }
+
         [Test]
         public void TestBuyLife()
         {
-            //todo make it independent
-
-            var tabName = "Item";
-            storePage.GoToTab("Character");
-            storePage.GetMoreMoney();
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
-            storePage.GoToTab(tabName);
-            storePage.Buy(tabName, 3);
-            Assert.True(storePage.GetNumberOf(3) == 1);
-            Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 3));
-        }
-        [Test]
-        public void TestBuySafetyHat()
-        {
-            //todo make it independent
-            var tabName = "Accesories";
-            storePage.GoToTab("Character");
-            storePage.GetMoreMoney();
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
-            storePage.GoToTab(tabName);
-            storePage.Buy(tabName, 0);
-            Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 0));
-        }
-        [Test]
-        public void TestBuyPartyHat()
-        {
-            //todo make it independent
-            var tabName = "Accesories";
-            storePage.GoToTab("Character");
-            storePage.GetMoreMoney();
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
-            storePage.GoToTab(tabName);
-            storePage.Buy(tabName, 1);
-            Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 1));
-            // todo check that conserve is also taken
-        }
-
-        [Test]
-        public void TestBuySmart()
-        {
-            mainMenuPage = new MainMenuPage(altDriver);
-            mainMenuPage.LoadScene();
-            mainMenuPage.DeleteData();
-            storePage.Load();
-            var tabName = "Accesories";
-            storePage.GoToTab("Character");
-            storePage.GetMoreMoney();
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
-            storePage.GoToTab(tabName);
-            storePage.Buy(tabName, 2);
-
-            Assert.True(moneyAmount - storePage.GetTotalAmountOfMoney() == storePage.GetPriceOf(tabName, 2));
-        }
-        [Test]
-
-        public void TestBuyAllHats()
-        {
-            var tabName = "Accesories";
-            storePage.GoToTab("Character");
-            storePage.GetMoreMoney();
-            var moneyAmount = storePage.GetTotalAmountOfMoney();
-            storePage.GoToTab(tabName);
-            storePage.BuyAllFromTab(tabName);
-            Assert.True(storePage.AssertOwning(tabName, 0));
-            Assert.True(storePage.AssertOwning(tabName, 1));
-            Assert.True(storePage.AssertOwning(tabName, 2));
-            Assert.True(storePage.AssertOwning(tabName, 3));
-            Assert.True(storePage.AssertOwning(tabName, 4));
+            AssertBuyItem(3);
         }
         [Test]
         public void TestBuyAllItems()
@@ -193,18 +119,66 @@ namespace alttrashcat_tests_csharp.tests
             for (int i = 0; i < 3; i++) AssertBuyItem(i);
         }
         [Test]
-        public void TestCheckIfFishbonesAmountIsNextToIcon()
-        {
-            storePage.GetMoreMoney();
-            Assert.True(storePage.FishbonesAmountByCoordinates());
-        }
-        [Test]
         public void TestAssertOwningTrashCatCharacter()
         {
             var tabName = "Character";
             storePage.GoToTab(tabName);
             Assert.True(storePage.AssertOwning(tabName, 0));
         }
+        [Test]
+        public void TestBuyRaccoon()
+        {
+            var tabName = "Character";
+            storePage.GoToTab("Item");
+            storePage.GetMoreMoney();
+
+            storePage.GoToTab(tabName);
+            storePage.Buy(tabName, 1);
+
+            Assert.Multiple(() =>
+            {
+                Assert.True(storePage.AssertOwning(tabName, 1));
+            });
+        }
+        [Test]
+        public void TestBuySafetyHat()
+        {
+            AssertBuyAccessory(0);
+        }
+        
+        [Test]
+        public void TestBuyPartyHat()
+        {
+
+            AssertBuyAccessory(1);
+
+        }
+
+        [Test]
+        public void TestBuySmart()
+        {
+
+            AssertBuyAccessory(2);
+
+        }
+        [Test]
+        public void TestBuyAllHats()
+        {
+            Assert.Multiple(() =>
+            {
+                AssertBuyAccessory(0);
+                AssertBuyAccessory(1);
+                AssertBuyAccessory(2);
+            });
+        }
+
+        [Test]
+        public void TestCheckIfFishbonesAmountIsNextToIcon()
+        {
+            TestGetMoreMoney();
+            Assert.True(storePage.FishbonesAmountByCoordinates());
+        }
+
         [Test]
         public void TestSetButtonInteractable()
         {
@@ -219,25 +193,41 @@ namespace alttrashcat_tests_csharp.tests
             Assert.True(numberOfMagnets - currentNumOfMagnets == 1);
         }
         [Test]
+        public void TestNewMagnetName()
+        {
+            string value = "magneeeeeeet";
+            string tabName = "Items";
+            string newName = storePage.ChangeItemName(tabName, 0, value);
+            Assert.AreEqual(value, newName);
+        }
+        [Test]
+        public void TestDifferentColorsOnPressing()
+        {
+            Assert.True(storePage.DifferentStateWhenPressingBtn());
+        }
+        [Test]
+        [Ignore("This test is only for learning purposes")]
         public void TestDifferentStatesOnPointingObject()
         {
             AltObject buyMagnetButton = storePage.GetObjectsBuyButton("Items", 0);
             Assert.True(storePage.CheckObjectStatesOnPointing(buyMagnetButton));
         }
+
         [Test]
-        public void TestGetMoreMoney()
+        public void TestBuyRaccoonAndHats()
         {
-            int currentAmountOfFishbones = storePage.GetTotalAmountOfMoney();
-            storePage.GetMoreMoney();
-            Assert.True(storePage.GetTotalAmountOfMoney() - currentAmountOfFishbones == 1000000);
+            Assert.Multiple(() =>
+            {
+                TestBuyRaccoon();
+                AssertBuyAccessory(3);
+                AssertBuyAccessory(4);
+            });
         }
 
         [TearDown]
         public void Dispose()
         {
-            // mainMenuPage = new MainMenuPage(altDriver);
-            // mainMenuPage.LoadScene();
-            // mainMenuPage.DeleteData();
+            DeleteAllData();
             altDriver.Stop();
             Thread.Sleep(1000);
         }

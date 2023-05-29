@@ -188,6 +188,11 @@ namespace alttrashcat_tests_csharp.pages
             string coins = TotalFishbones.GetText();
             return int.Parse(coins);
         }
+        public bool IsOwned(AltObject buyButton){
+            string buttonText = buyButton.GetText();
+            if (buttonText == "Owned") return true;
+            return false;
+        }
 
         public bool AssertOwning(string tabName, int index)
         {
