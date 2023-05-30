@@ -74,9 +74,10 @@ namespace alttrashcat_tests_csharp.pages
 
         public void MoveObject(AltObject obj, int xMoving = 20, int yMoving = 20)
         {
+            // obj.UpdateObject();
             AltVector2 initialPosition = obj.GetScreenPosition();
             int fingerId = Driver.BeginTouch(initialPosition);
-            AltVector2 newPosition = new AltVector2(AltTesterLogo.x - xMoving, AltTesterLogo.y + yMoving);
+            AltVector2 newPosition = new AltVector2(initialPosition.x - xMoving, initialPosition.y + yMoving);
             Driver.MoveTouch(fingerId, newPosition);
             Driver.EndTouch(fingerId);
         }

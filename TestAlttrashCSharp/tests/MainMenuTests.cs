@@ -27,17 +27,13 @@ namespace alttrashcat_tests_csharp.tests
         public void TestAssertMovingLogo()
         {
             Thread.Sleep(1000);
+            mainMenuPage.LoadScene();
+ 
             AltVector2 initialPosition = mainMenuPage.GetAltTesterLogo().GetScreenPosition();
-            Console.WriteLine("Initial x position: "+ initialPosition.x);
-            Console.WriteLine("Initial y position: "+ initialPosition.y);
+            mainMenuPage.MoveObject(mainMenuPage.GetAltTesterLogo(), 160, 240);
 
-            mainMenuPage.MoveObject(mainMenuPage.GetAltTesterLogo(), 30, 60);
-            Console.WriteLine("Current x position: "+ mainMenuPage.GetAltTesterLogo().GetScreenPosition().x);
-            Console.WriteLine("Current y position: "+ mainMenuPage.GetAltTesterLogo().GetScreenPosition().y);
-
-
-            Assert.AreEqual(30, initialPosition.x - mainMenuPage.GetAltTesterLogo().GetScreenPosition().x);
-            Assert.AreEqual(60, mainMenuPage.GetAltTesterLogo().GetScreenPosition().y - initialPosition.y);
+            Assert.AreEqual(160, initialPosition.x - mainMenuPage.GetAltTesterLogo().GetScreenPosition().x);
+            Assert.AreEqual(240, mainMenuPage.GetAltTesterLogo().GetScreenPosition().y - initialPosition.y);
         }
         [Test]
         public void TestPrintAllButtonsFromPage()
@@ -99,7 +95,7 @@ namespace alttrashcat_tests_csharp.tests
                 Assert.AreEqual(1920, sizeAsProperty.x);
                 Assert.AreEqual(1080, sizeAsProperty.y);
                 altDriver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule",
-                            new string[] { "400", "700", "false" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
+                            new string[] { "1007", "877", "false" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
                 // mainMenuPage.SetScreenResolutionUsingCallStaticMethod("380", "600");
             });
         }
