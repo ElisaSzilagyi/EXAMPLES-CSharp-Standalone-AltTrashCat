@@ -95,7 +95,7 @@ namespace alttrashcat_tests_csharp.tests
                 Assert.AreEqual(1920, sizeAsProperty.x);
                 Assert.AreEqual(1080, sizeAsProperty.y);
                 altDriver.CallStaticMethod<string>("UnityEngine.Screen", "SetResolution", "UnityEngine.CoreModule",
-                            new string[] { "1007", "877", "false" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
+                            new string[] { "700", "1420", "true" }, new string[] { "System.Int32", "System.Int32", "System.Boolean" });
                 // mainMenuPage.SetScreenResolutionUsingCallStaticMethod("380", "600");
             });
         }
