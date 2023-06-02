@@ -35,7 +35,7 @@ You can view a video of how to run the tests on MAC OS by clicking on the follow
 
 [![Youtube](http://img.youtube.com/vi/tr3_8YawBck/0.jpg)](https://www.youtube.com/embed/tr3_8YawBck "Youtube")
 
-### Running the tests on Android
+## Running the tests on Android
 
 1. Have an [instrumented build for Android.](https://alttester.com/docs/sdk/pages/get-started.html#instrument-your-game-with-alttester-unity-sdk)
 2. Download and install [.NET SDK](https://dotnet.microsoft.com/en-us/download).
